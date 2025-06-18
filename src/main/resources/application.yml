@@ -1,8 +1,9 @@
 application:
   name: Products Inventory Management
-  logging:
-    level:
-      root: INFO
-      com.example.flipkart: DEBUG
-    file:
-      name: logs/flipkart-app.log
+
+logging:
+   level:
+    root: INFO
+    com.example.flipkart: DEBUG
+   file:
+    name: logs/flipkart-app.log

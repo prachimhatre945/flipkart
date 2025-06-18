@@ -1,16 +1,16 @@
 package com.example.flipkart.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.apache.logging.log4j.message.Message;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
+@Table(name = "product" , uniqueConstraints = @UniqueConstraint(columnNames = {"name", "brand"}))
 public class Product {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +20,19 @@ public class Product {
     private String brand;
     private double price;
     private int stock;
-    @NotNull(message = "Category should not be empty")
-    private String category;
+//    @NotNull(message = "Category should not be empty")
+//    private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_product_category"))
+    @JsonBackReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
 
     public Product() {
     }
 
-    public Product(Long id, String name, String brand, double price, int stock, String category) {
+    public Product(Long id, String name, String brand, double price, int stock, Category category) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -71,15 +77,16 @@ public class Product {
         return stock;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public void setStock(int stock) {
         this.stock = stock;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

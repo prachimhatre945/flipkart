@@ -1,5 +1,6 @@
 package com.example.flipkart.Repository;
 
+import com.example.flipkart.Entity.Category;
 import com.example.flipkart.Entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,8 +16,8 @@ public interface ProductRepository extends JpaRepository<Product , Long> {
 
     @Query("select p from Product p where price > 1000 and price< 50000")
     public List<Product> filterByPrice();
-    public List<Product> findByCategory(String category);
-    public List<Product> findByCategoryAndBrand(String category , String brand);
+    public List<Product> findByCategory(Category category);
+    public List<Product> findByCategoryAndBrand(Category category , String brand);
 
 
 }

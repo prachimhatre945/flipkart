@@ -1,5 +1,6 @@
 package com.example.flipkart.Controller;
 
+import com.example.flipkart.Entity.Category;
 import com.example.flipkart.Entity.Product;
 import com.example.flipkart.Service.ProductService;
 import jakarta.validation.Valid;
@@ -52,12 +53,12 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public ResponseEntity<List<Product>> getProductsByCategory( @RequestParam String category){
+    public ResponseEntity<List<Product>> getProductsByCategory( @RequestParam Category category){
         return productService.getProductsByCategory(category);
     }
 
     @GetMapping("/by-category&brand")
-    public ResponseEntity<List<Product>> getProductsByCategoryAndBrand( @RequestParam String category , @RequestParam String brand){
+    public ResponseEntity<List<Product>> getProductsByCategoryAndBrand( @RequestParam Category category , @RequestParam String brand){
         return productService.getProductsByCategoryAndBrand(category , brand);
     }
 
