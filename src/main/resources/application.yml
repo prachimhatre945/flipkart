@@ -7,3 +7,9 @@ logging:
     com.example.flipkart: DEBUG
    file:
     name: logs/flipkart-app.log
+
+jwt:
+ secret: simple-secret-key-123
+ expiration: 86400000 # 1 day in milliseconds
+server:
+ port: 8080

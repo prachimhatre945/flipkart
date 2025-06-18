@@ -14,14 +14,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull(message = "Name should not be empty")
     private String name;
+
     @Size(min = 3 , max = 20 , message = "Name must be between 3 and 20 characters")
     private String brand;
+
     private double price;
     private int stock;
-//    @NotNull(message = "Category should not be empty")
-//    private String category;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_product_category"))
