@@ -5,6 +5,7 @@ import com.example.flipkart.Repository.UserRepository;
 import com.example.flipkart.Utilities.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,12 +31,14 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("USER"); // Default role
+//        user.setRole("USER"); // Default role
+        user.setRole(user.getRole().toUpperCase());
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));

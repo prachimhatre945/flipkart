@@ -20,8 +20,6 @@ public class Product {
     private String brand;
     private double price;
     private int stock;
-//    @NotNull(message = "Category should not be empty")
-//    private String category;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_product_category"))

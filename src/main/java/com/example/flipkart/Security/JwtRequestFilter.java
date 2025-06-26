@@ -1,4 +1,6 @@
 package com.example.flipkart.Security;
+import com.example.flipkart.Constants.AppConstants;
+import com.example.flipkart.ExceptionHandeling.CustomException;
 import com.example.flipkart.Service.CustomUserDetailsService;
 import com.example.flipkart.Utilities.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -46,6 +48,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
         }catch (Exception ex){
             System.out.println("Execption : " +ex);
+            throw new CustomException(AppConstants.TOKEN_EXPIRED);
         }
     }
 }

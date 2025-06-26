@@ -58,10 +58,10 @@ public class ProductService {
             existingProduct.setPrice(product.getPrice());
             existingProduct.setStock(product.getStock());
             productRepository.save(existingProduct);
+            return  ResponseEntity.status(200).body(productRepository.findById(id));
         }
         else
             throw new CustomException(AppConstants.PRODUCT_NOT_FOUND);
-        return  ResponseEntity.status(200).body(productRepository.findById(product.getId()));
     }
 
     public ResponseEntity<?> deleteProduct(Long id) throws CustomException {
